@@ -10,3 +10,7 @@ Se presentan todos los productos que se pueden ordenar
 defini modelo de productos
 configuro redux
 copio dummy data
+
+166 Utilizo useSelector en ProductsOverview para tener los datos del store
+ const products = useSelector( state => state.products.availableProducts)
+ lo utilizo en Flatlistya que requiere un array para funcionar
