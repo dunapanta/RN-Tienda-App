@@ -38,7 +38,21 @@ copio dummy data
     <ShopNavigator />
 </Provider>
 
-166 Creo componente ProductItem
+167 Creo componente ProductItem
 creo estilos y lo paso a Flatlist
 en el caso de la imagenes siempre deben tener width y heigth
 y se coloca overflow: 'hidden' para que los hijos no se sobrepongan a los estilos definidos en el padre ejemplo borderRadius 
+
+167 Comienzo a trabajar con ProductDetailScreen
+lo añado a ShopNavigation 
+IMPORTANTE RECODAR que el primer screen pasado a ProductsNavigator es con el que se inicializa la app
+agrego la navegacion en ProductOverviewScreen
+
+168 Agrego la navegacion y paso productId, title por medio de navigation
+para encontrarlo en el state de redux
+const selectedProduct = useSelector(
+        state => state.products.availableProducts.find(p => p.id === productId) )
+
+agrego TouchableOpacity en componente ProductItem para poder navegar haciendo tab en cualquier parte del mismo
+en android pondo TouchabeNativeFeedback y se añade useForeground para que la imagen tambien tenga el efecto ripple
+<Touchable onPress={onViewDetail}  background={TouchableNativeFeedback.Ripple(Colors.secondaryLight, true)} useForeground>

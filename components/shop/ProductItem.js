@@ -1,21 +1,34 @@
 import React from 'react'
-import { View, Text, Image, Button, StyleSheet } from 'react-native'
+import { View, Text, Image, Button, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native'
 
 import Colors from '../../constants/Colors'
 
 const ProdctItem  = ({ image, title, price, onViewDetail, onAddToCart }) => {
+
+    let Touchable = TouchableOpacity
+
+    if (Platform.OS === 'android' && Platform.Version >= 21){
+        Touchable = TouchableNativeFeedback
+    }
+
     return (
         <View style={styles.product}>
-            <View style={styles.imageContainer}>
-                <Image style={styles.image} source={{ uri: image}}/>
-            </View>
-            <View style={styles.detailInfo}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.price}>${price.toFixed(2)}</Text>
-            </View>
-            <View style={styles.actions}>
-                <Button title="Ver Detalles" onPress={onViewDetail} color={Colors.secondary}/>
-                <Button title="Añadir al Carrito" onPress={onAddToCart} color={Colors.secondary}/>
+            <View style={styles.touchable}>
+                <Touchable onPress={onViewDetail}  background={TouchableNativeFeedback.Ripple(Colors.secondaryLight, true)} useForeground>
+                    <View>
+                        <View style={styles.imageContainer}>
+                            <Image style={styles.image} source={{ uri: image}}/>
+                        </View>
+                        <View style={styles.detailInfo}>
+                            <Text style={styles.title}>{title}</Text>
+                            <Text style={styles.price}>${price.toFixed(2)}</Text>
+                        </View>
+                        <View style={styles.actions}>
+                            <Button title="Ver Detalles" onPress={onViewDetail} color={Colors.secondary}/>
+                            <Button title="Añadir al Carrito" onPress={onAddToCart} color={Colors.secondary}/>
+                        </View>
+                    </View>
+                </Touchable>
             </View>
         </View>
     )
@@ -35,6 +48,10 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.primaryLight,
         height: 300,
         margin: 20,
+    },
+    touchable:{
+        borderRadius: 10,
+        overflow: 'hidden'
     },
     detailInfo:{
         alignItems: 'center',
