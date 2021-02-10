@@ -1,0 +1,3 @@
+164 Distribucion del proyecto
+Dependencias que instalo
+yarn add redux react-redux
