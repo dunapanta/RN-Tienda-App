@@ -8,3 +8,5 @@ expo install react-native-gesture-handler react-native-reanimated
 165 ProductOverviewScreen
 Se presentan todos los productos que se pueden ordenar
 defini modelo de productos
+configuro redux
+copio dummy data
