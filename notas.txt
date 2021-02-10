@@ -17,7 +17,7 @@ copio dummy data
  lo utilizo en Flatlistya que requiere un array para funcionar
  Defino los colores en la carpeta constants
  Ahora creo el Navigator en el archivo ShopNavigator.js
- 
+
  const ProductsNavigator = createStackNavigator({
     ProductsOverview: ProductsOverviewScreen
 }, {
@@ -37,3 +37,8 @@ copio dummy data
  <Provider store={store}>
     <ShopNavigator />
 </Provider>
+
+166 Creo componente ProductItem
+creo estilos y lo paso a Flatlist
+en el caso de la imagenes siempre deben tener width y heigth
+y se coloca overflow: 'hidden' para que los hijos no se sobrepongan a los estilos definidos en el padre ejemplo borderRadius 

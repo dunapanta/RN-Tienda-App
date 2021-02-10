@@ -37,7 +37,7 @@ const PRODUCTS = [
     'p5',
     'u3',
     'PowerBook',
-    'https://get.pxhere.com/photo/laptop-computer-macbook-mac-screen-water-board-keyboard-technology-air-mouse-photo-airport-aircraft-tablet-aviation-office-black-monitor-keys-graphic-hardware-image-pc-exhibition-multimedia-calculator-vector-water-cooling-floppy-disk-phased-out-desktop-computer-netbook-personal-computer-computer-monitor-electronic-device-computer-hardware-display-device-448748.jpg',
+    'https://cdn.pixabay.com/photo/2014/05/02/21/49/laptop-336373_960_720.jpg',
     'Increible computador de última generación y especificaciones de alta gama',
     2299.99
   ),
