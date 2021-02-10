@@ -3,6 +3,7 @@ Dependencias que instalo
 yarn add redux react-redux
 yarn add react-navigation
 yarn add react-navigation-header-buttons
+yarn add react-navigation-stack
 expo install react-native-gesture-handler react-native-reanimated
 
 165 ProductOverviewScreen
@@ -14,3 +15,25 @@ copio dummy data
 166 Utilizo useSelector en ProductsOverview para tener los datos del store
  const products = useSelector( state => state.products.availableProducts)
  lo utilizo en Flatlistya que requiere un array para funcionar
+ Defino los colores en la carpeta constants
+ Ahora creo el Navigator en el archivo ShopNavigator.js
+ 
+ const ProductsNavigator = createStackNavigator({
+    ProductsOverview: ProductsOverviewScreen
+}, {
+    defaultNavigationOptions: {
+        headerStyle:{
+            backgrondColor: Platform.OS === 'android' ? Colors.primary : ''
+        },
+        headerTintColor: Platform.OS === 'android' ? 'black' : Colors.primary,
+
+    }
+})
+ defaultNavigationOptions ---> se aplica para todas las sreens
+ selo exporta con la funciona createAppContainer
+ export default createAppContainer(ProductsNavigator)
+ y lo incluyo en App.js asi
+
+ <Provider store={store}>
+    <ShopNavigator />
+</Provider>
