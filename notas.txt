@@ -56,3 +56,30 @@ const selectedProduct = useSelector(
 agrego TouchableOpacity en componente ProductItem para poder navegar haciendo tab en cualquier parte del mismo
 en android pondo TouchabeNativeFeedback y se añade useForeground para que la imagen tambien tenga el efecto ripple
 <Touchable onPress={onViewDetail}  background={TouchableNativeFeedback.Ripple(Colors.secondaryLight, true)} useForeground>
+
+169 Agrego contenido en ProductDetailScreen
+
+170 Agrego fonts de la misma manera
+expo install expo-app-loading
+expo install expo-font
+
+importo
+import * as Font from 'expo-font'
+import AppLoading from 'expo-app-loading';
+
+const fetchFonts = async () => {
+  await Font.loadAsync({
+    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+  })
+}
+ dentro de App
+const [fontLoaded, setFontLoaded] = useState(false);
+ if(!fontLoaded){
+    return <AppLoading 
+            startAsync={fetchFonts} 
+            onFinish={ () => setFontLoaded(true) }
+            onError={ (err) => console.log(err)}
+          />
+
+Agrego los estilos en donde necesito

@@ -4,5 +4,6 @@ export default {
     primaryDark: '#009faf',
     secondary: '#ff9800',
     secondaryLight: '#ffc947',
-    secondaryDark: '#c66900'
+    secondaryDark: '#c66900',
+    secondaryDarker: '#870000'
 }
