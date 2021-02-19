@@ -1,21 +1,24 @@
 /* import { StatusBar } from 'expo-status-bar'; */
 import React from 'react';
+import { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import * as Font from 'expo-font' 
 import AppLoading from 'expo-app-loading'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 import productsReducer from './store/reducers/products'
+import cartReducer from './store/reducers/cart'
 import ShopNavigator from './navigation/ShopNavigator'
 import Colors from './constants/Colors'
-import { useState } from 'react';
 
 const rootReducer = combineReducers({
-  products: productsReducer
+  products: productsReducer,
+  cart: cartReducer
 })
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, composeWithDevTools())
 
 const fetchFonts = async () => {
   await Font.loadAsync({

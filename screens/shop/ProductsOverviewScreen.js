@@ -30,7 +30,7 @@ const ProductsOverviewScreen = ({ navigation }) => {
                         })
                     }}
                     onAddToCart={ () => {
-                        dispatch(cardActions.addToCart(itemData.item))
+                        dispatch(cartActions.addToCart(itemData.item))
                     }}
                 />
             )}

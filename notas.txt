@@ -85,3 +85,11 @@ const [fontLoaded, setFontLoaded] = useState(false);
 Agrego los estilos en donde necesito
 
 171 Logica de cart usando redux
+Para comprobar uso React Native Debugger
+con ctrl + t puedo abrir una nueva ventana y confirmar el puerto
+en el emulador con ctrl + m selecciono Debug Remote JS
+installo en el proyecto
+yarn add --dev redux-devtools-extension
+En App
+import { composeWithDevTools } from 'redux-devtools-extension'
+const store = createStore(rootReducer, composeWithDevTools())
