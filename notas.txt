@@ -83,3 +83,5 @@ const [fontLoaded, setFontLoaded] = useState(false);
           />
 
 Agrego los estilos en donde necesito
+
+171 Logica de cart usando redux
