@@ -40,17 +40,21 @@ const ProductsOverviewScreen = ({ navigation }) => {
     )
 }
 
-ProductsOverviewScreen.navigationOptions = {
-    headerTitle: 'Todos los Productos',
-    headerRight: () => (
-        <HeaderButtons HeaderButtonComponent={HeaderButton}>
-            <Item 
-                title="Cart"
-                iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
-                onPress={ () => {}}
-            />
-        </HeaderButtons>
+ProductsOverviewScreen.navigationOptions = navData => {
+    return {
+        headerTitle: 'Todos los Productos',
+        headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item 
+                    title="Cart"
+                    iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
+                    onPress={ () => {
+                        navData.navigation.navigate('Cart')
+                    }}
+                />
+            </HeaderButtons>
     )
+    }
 }
 
 const styles = StyleSheet.create({
