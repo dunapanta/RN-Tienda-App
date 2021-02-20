@@ -93,3 +93,6 @@ yarn add --dev redux-devtools-extension
 En App
 import { composeWithDevTools } from 'redux-devtools-extension'
 const store = createStore(rootReducer, composeWithDevTools())
+
+
+172 Agrego HeaderButton para agregar los iconos
