@@ -100,3 +100,9 @@ agrego CartScreen
 convierto objeto en array para desabilitar el boton si no hay items en el carrito
 
 173 Flatlist con los items del carrito
+
+174 Agregando logica al boton de borrar
+el el reducer o se elimina o se disminuye la cantidad
+se utiliza delete lo cual no habia utilizado antes para borrar una propiedad de un objeto
+Tambien ordeno el array con sort para que retorne en el mismo orden
+transformedCartItems.sort( (a, b) => a.productId > b.productId ? 1 : -1)
