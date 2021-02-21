@@ -10,12 +10,14 @@ import AppLoading from 'expo-app-loading'
 
 import productsReducer from './store/reducers/products'
 import cartReducer from './store/reducers/cart'
+import ordersReducer from './store/reducers/orders'
 import ShopNavigator from './navigation/ShopNavigator'
 import Colors from './constants/Colors'
 
 const rootReducer = combineReducers({
   products: productsReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  orders: ordersReducer
 })
 
 // para realizar debugg en development quitar en produccion

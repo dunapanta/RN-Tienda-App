@@ -106,3 +106,8 @@ el el reducer o se elimina o se disminuye la cantidad
 se utiliza delete lo cual no habia utilizado antes para borrar una propiedad de un objeto
 Tambien ordeno el array con sort para que retorne en el mismo orden
 transformedCartItems.sort( (a, b) => a.productId > b.productId ? 1 : -1)
+
+175 Creo modelo, action y reducer de orders
+en action solo se pasa items y totalAmount y el modelo se define un id, el id se creara luego en un servidor
+por el momento se utiliza Date().toString() que sirva como id
+
