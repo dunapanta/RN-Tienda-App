@@ -151,3 +151,8 @@ navigationOptions:{
             />
         ) 
     }
+ }
+
+ 177 Borrando el Carrito
+ importtante saber que se puede utilizar la misma action y mas de un reducer y se ejecuta a la vez
+ por eso en el reducer de cart se agrega ADD_ORDER para que también borre el carrido
