@@ -139,3 +139,15 @@ En ProductsOverviewScreen y en OrdersScreen agrego el menu para el drawer con he
             </HeaderButtons>
     ),
 
+se agrega iconos al drawer
+
+navigationOptions:{
+        drawerLabel: 'Ordenes',
+        drawerIcon: drawerConfig => (
+            <Ionicons 
+                name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
+                size={22}
+                color={drawerConfig.tintColor}
+            />
+        ) 
+    }
