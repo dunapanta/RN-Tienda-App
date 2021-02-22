@@ -111,3 +111,31 @@ transformedCartItems.sort( (a, b) => a.productId > b.productId ? 1 : -1)
 en action solo se pasa items y totalAmount y el modelo se define un id, el id se creara luego en un servidor
 por el momento se utiliza Date().toString() que sirva como id
 
+176 Añado el drawer para eso 
+
+yarn add react-native-screens
+yarn add react-navigation-drawer
+import { createDrawerNavigator } from 'react-navigation-drawer'
+
+const ShopNavigator = createDrawerNavigator({
+    Products: ProductsNavigator,
+    Orders: OrdersNavigator
+},{
+    contentOptions:{
+        activeTintColor:  Colors.primary
+    }
+})
+
+En ProductsOverviewScreen y en OrdersScreen agrego el menu para el drawer con headerLeft
+ headerLeft: () => (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item 
+                    title="Menu"
+                    iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+                    onPress={ () => {
+                        navData.navigation.toggleDrawer()
+                    }}
+                />
+            </HeaderButtons>
+    ),
+
