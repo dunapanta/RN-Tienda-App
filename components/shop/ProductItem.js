@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text, Image, Button, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native'
 
 import Colors from '../../constants/Colors'
 
-const ProdctItem  = ({ image, title, price, onViewDetail, onAddToCart }) => {
+const ProdctItem  = ({ image, title, price, onSelect, children }) => {
 
     let Touchable = TouchableOpacity
 
@@ -14,7 +14,7 @@ const ProdctItem  = ({ image, title, price, onViewDetail, onAddToCart }) => {
     return (
         <View style={styles.product}>
             <View style={styles.touchable}>
-                <Touchable onPress={onViewDetail}  background={TouchableNativeFeedback.Ripple(Colors.secondaryLight, true)} useForeground>
+                <Touchable onPress={onSelect}  background={TouchableNativeFeedback.Ripple(Colors.secondaryLight, true)} useForeground>
                     <View>
                         <View style={styles.imageContainer}>
                             <Image style={styles.image} source={{ uri: image}}/>
@@ -24,8 +24,7 @@ const ProdctItem  = ({ image, title, price, onViewDetail, onAddToCart }) => {
                             <Text style={styles.price}>${price.toFixed(2)}</Text>
                         </View>
                         <View style={styles.actions}>
-                            <Button title="Ver Detalles" onPress={onViewDetail} color={Colors.secondary}/>
-                            <Button title="Añadir al Carrito" onPress={onAddToCart} color={Colors.secondary}/>
+                            {children}
                         </View>
                     </View>
                 </Touchable>

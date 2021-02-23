@@ -170,3 +170,6 @@ dayjs.extend(relativeTime)
   180 empezando a trabajar con UserProductScreen
   los productos que aparecen ahi debe ser los que pertenecen al usuario logeado
   se implementa la navegacion 
+
+  181 Utilizo children para pasar botones diferentes para los productos y los productos
+   del usuarioque debe ser capaz de editar y eliminar
