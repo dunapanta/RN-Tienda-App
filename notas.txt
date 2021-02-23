@@ -156,3 +156,11 @@ navigationOptions:{
  177 Borrando el Carrito
  importtante saber que se puede utilizar la misma action y mas de un reducer y se ejecuta a la vez
  por eso en el reducer de cart se agrega ADD_ORDER para que también borre el carrido
+ para la fecha utilizo un metodo en la clase y la envio con dayjs
+
+import relativeTime from  'dayjs/plugin/relativeTime'
+import 'dayjs/locale/es'
+
+dayjs.extend(relativeTime)
+
+  return dayjs(this.date).locale("es").format('DD MMMM YYYY, hh:mm')
