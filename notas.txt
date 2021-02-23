@@ -198,3 +198,8 @@ tambien los cambios deben hacerse en el reducer cart
                 items: updatedItems,
                 totalAmount: state.totalAmount - itemTotal
             } 
+
+183 Navegacion a Editar producto
+para asegurarse que el valor de amount no arroje un - al momento de eliminar del carrito
+Math.round(cartTotalAmount.toFixed(2) * 100) / 100
+
