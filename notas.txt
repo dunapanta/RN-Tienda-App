@@ -164,3 +164,5 @@ import 'dayjs/locale/es'
 dayjs.extend(relativeTime)
 
   return dayjs(this.date).locale("es").format('DD MMMM YYYY, hh:mm')
+
+  179 mostrando los detalles de los productos con el boton

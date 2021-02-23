@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons'
 
 import Colors from '../../constants/Colors'
 
-const CardItem = ({ quantity, title, amount, onRemove }) => {
+const CardItem = ({ quantity, title, amount, onRemove, deletable }) => {
 
 
     return (
@@ -15,7 +15,7 @@ const CardItem = ({ quantity, title, amount, onRemove }) => {
             </View>
             <View style={styles.itemData}>
                 <Text style={styles.amount}>${amount.toFixed(2)}</Text>
-                <TouchableOpacity 
+                {deletable && <TouchableOpacity 
                     style={styles.deleteButton}
                     onPress={onRemove}  
                 >
@@ -24,7 +24,7 @@ const CardItem = ({ quantity, title, amount, onRemove }) => {
                             size={22}
                             color="red"
                         />
-                </TouchableOpacity>
+                </TouchableOpacity>}
             </View>
         </View>
     )

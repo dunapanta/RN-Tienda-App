@@ -1,17 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, Button, StyleSheet } from 'react-native'
 import Colors from '../../constants/Colors'
 
 import CartItem from './CardItem'
 
-const OrderItem = ({ amount, date }) => {
+const OrderItem = ({ amount, date, items }) => {
+
+    const [showDetails, setShowDetails] = useState(false)
+
     return (
         <View style={styles.orderItem}>
             <View style={styles.summary}>
                 <Text style={styles.total}>${amount.toFixed(2)}</Text>
                 <Text style={styles.date}>{date}</Text>
             </View>
-            <Button title="Detalles" color={Colors.secondary}/>
+            <Button 
+                title={showDetails ? "Esconder Detalles" : "Mostrar Detalles"}
+                color={Colors.secondary}
+                onPress={ () => {
+                    setShowDetails(prevState => !prevState)
+                }}
+            />
+            {showDetails && (
+                <View style={styles.detailItems}>
+                    {items.map(cartItem => (
+                        <CartItem 
+                            key={cartItem.productId}
+                            quantity={cartItem.quantity}
+                            title={cartItem.productTitle}
+                            amount={cartItem.sum}
+                        />
+                    ))}
+                </View>
+            )}
         </View>
     )
 }
@@ -48,6 +69,11 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans',
         fontSize: 16,
         color: Colors.secondaryDarker
+    },
+    detailItems: {
+        width: '100%',
+        marginTop: 15,
+        marginBottom: 10
     }
 })
 
