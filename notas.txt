@@ -173,3 +173,28 @@ dayjs.extend(relativeTime)
 
   181 Utilizo children para pasar botones diferentes para los productos y los productos
    del usuarioque debe ser capaz de editar y eliminar
+
+182 Añado lógica para borrar un producto en reducer products
+return {
+        ...state,
+        userProducts: state.userProducts.filter( 
+            product => product.id !== action.pid
+            ),
+        availableProducts: state.availableProducts.filter( 
+            product => product.id !== action.pid
+            ),
+    }
+
+tambien los cambios deben hacerse en el reducer cart
+
+ if (state.items[action.pid]){
+                return state
+            }
+            const updatedItems = {...state.items}
+            const itemTotal = state.items[action.pid].sum
+            delete updatedItems[action.pid]
+            return {
+                ...state,
+                items: updatedItems,
+                totalAmount: state.totalAmount - itemTotal
+            } 
