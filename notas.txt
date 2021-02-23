@@ -166,3 +166,7 @@ dayjs.extend(relativeTime)
   return dayjs(this.date).locale("es").format('DD MMMM YYYY, hh:mm')
 
   179 mostrando los detalles de los productos con el boton
+
+  180 empezando a trabajar con UserProductScreen
+  los productos que aparecen ahi debe ser los que pertenecen al usuario logeado
+  se implementa la navegacion 
