@@ -203,3 +203,7 @@ tambien los cambios deben hacerse en el reducer cart
 para asegurarse que el valor de amount no arroje un - al momento de eliminar del carrito
 Math.round(cartTotalAmount.toFixed(2) * 100) / 100
 
+184 Agrego formularios para agregar o editar productos
+
+186 pasando por params datos
+
