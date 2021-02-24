@@ -210,3 +210,5 @@ añado actions y reducer para crear y actualizar
 
 187 Agregando alerta para le borrado de un producto y navegando atras ds´pues de agregar o editar unproducto
 
+191 cambio keyboard para precio a decimal-pad
+propiedades de input existen varias
