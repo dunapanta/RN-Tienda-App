@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { View, Text, ScrollView, TextInput, StyleSheet, Platform } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Colors from '../../constants/Colors'
 import HeaderButton from '../../components/UI/HeaderButton'
+import * as productActions from '../../store/actions/products'
 
 const EditProductScreen = ({ navigation }) => {
     const prodId = navigation.getParam('productId')
@@ -15,9 +16,16 @@ const EditProductScreen = ({ navigation }) => {
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState(editedProduct ? editedProduct.description : '')
 
+    const dispatch = useDispatch()
+
     const submitHandler = useCallback(() => {
-        console.log('Enviando!')
-    }, [])
+        if (editedProduct) {
+            dispatch(productActions.updateProduct(prodId, title, description, imageUrl))
+        }
+        else {
+            dispatch(productActions.createProduct(title, description, imageUrl, +price))
+        }
+    }, [dispatch, editedProduct, prodId, title, description, imageUrl, price])
 
     useEffect( () => {
         navigation.setParams({ submit: submitHandler})
