@@ -256,3 +256,5 @@ const [formState, dispatchFormState] = useReducer(formReducer, {
             isValid: isValid,
             input: 'title'
          })
+
+195 Separando input en un nuevo componente y agregando useReducer para texto y validaciones
