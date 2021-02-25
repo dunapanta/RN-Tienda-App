@@ -212,3 +212,47 @@ añado actions y reducer para crear y actualizar
 
 191 cambio keyboard para precio a decimal-pad
 propiedades de input existen varias
+
+192 Aplican las bases de validacion de inputs
+if (text.trim().length === 0){
+            setTitleIsValid(false)
+        } else {
+            setTitleIsValid(true)
+        }
+        setTitle(text)
+
+193 useReducer un hook para manejar el estado se lo suele utilizar para estados conectados o para estados mas complejos
+Utilizando useReducer() en vez de tener states separados para cada input
+es como tener un big state que hace merge a los inputs y las validacioness
+
+formReducer lo creo fuera del componente para que no se vuelva a crear en cada renderizado 
+
+y se implementa con un estado inicializal
+
+const [formState, dispatchFormState] = useReducer(formReducer, {
+        inputValues: {
+            title: editedProduct ? editedProduct.title : '',
+            imageUrl: editedProduct ? editedProduct.imageUrl : '',
+            price: '',
+            description: editedProduct ? editedProduct.description : ''
+        }, 
+        inputValidities: {
+            title: editedProduct ? true : false,
+            imageUrl: editedProduct ? true : false,
+            price: editedProduct ? true : false,
+            description: editedProduct ? true : false,
+        },
+        formIsValid: editedProduct ? true : false,
+    })
+
+    debe ser capaz de cambiar el estado cuando la action es despachada
+    y la action se despacha cuando se tipea en alguno de los text inputs
+
+    se despacha asi
+
+    dispatchFormState({
+            type: FORM_INPUT_UPDATE, 
+            value: text,
+            isValid: isValid,
+            input: 'title'
+         })
