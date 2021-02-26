@@ -258,3 +258,4 @@ const [formState, dispatchFormState] = useReducer(formReducer, {
          })
 
 195 Separando input en un nuevo componente y agregando useReducer para texto y validaciones
+tambien se agrega touched para saber cuando se termino de editar y perdio el "foco" del input
