@@ -2,10 +2,11 @@
 import React from 'react';
 import { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import * as Font from 'expo-font' 
 import AppLoading from 'expo-app-loading'
+import ReduxThunk from 'redux-thunk'
 /* import { composeWithDevTools } from 'redux-devtools-extension' */
 
 import productsReducer from './store/reducers/products'
@@ -22,7 +23,7 @@ const rootReducer = combineReducers({
 
 // para realizar debugg en development quitar en produccion
 /* const store = createStore(rootReducer, composeWithDevTools()) */
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 
 const fetchFonts = async () => {
   await Font.loadAsync({

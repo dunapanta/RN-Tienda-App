@@ -269,3 +269,11 @@ infinito ni el useCallback valia para solucionar eso por eso se pasa un id con e
 202 Instalo redyx-thunk
 yarn add redux-thunk
 Es un middleware de redux para manejar asincronicidad o side effects
+el reducer sigue siendo sincrono pero las actions pueden ser asincronas
+se puede enviar una request como parte de la action y una vez que se haya hecho se despachadala 
+la action al reducer
+Para configurar redux-thunk
+
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import ReduxThunk from 'redux-thunk'
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
