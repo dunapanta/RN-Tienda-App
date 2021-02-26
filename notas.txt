@@ -263,3 +263,9 @@ hay que tener ojo con las funciones bind porque se estaba ejecutando en cada ren
 infinito ni el useCallback valia para solucionar eso por eso se pasa un id con el nombre del input
 
 197 usando KeyboardAvoidingView para que el teclado no se sobreponga a los inputs
+
+201 Configuro firebase con Realtime Database
+
+202 Instalo redyx-thunk
+yarn add redux-thunk
+Es un middleware de redux para manejar asincronicidad o side effects
