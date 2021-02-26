@@ -84,7 +84,11 @@ const Input = (props) => {
                 onBlur={lostFocusHandler}
                 /* onEndEditing={ () => console.log('Terminado editar')} */
             />
-            {!inputState.isValid && <Text>{props.errorText}</Text>}
+            {!inputState.isValid && inputState.touched && (
+                <View style={styles.errorContainer}>
+                    <Text style={styles.errorText}>{props.errorText}</Text>
+                </View>
+                )}
         </View>
     )
 }
@@ -105,6 +109,14 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         borderBottomColor: Colors.primary,
         borderBottomWidth: 1
+    },
+    errorContainer: {
+        marginVertical: 5
+    },
+    errorText:{
+        fontFamily: 'open-sans',
+        color: 'red',
+        fontSize: 12
     }
 })
 

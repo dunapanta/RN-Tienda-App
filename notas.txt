@@ -259,3 +259,7 @@ const [formState, dispatchFormState] = useReducer(formReducer, {
 
 195 Separando input en un nuevo componente y agregando useReducer para texto y validaciones
 tambien se agrega touched para saber cuando se termino de editar y perdio el "foco" del input
+hay que tener ojo con las funciones bind porque se estaba ejecutando en cada renderizado y creando un loop
+infinito ni el useCallback valia para solucionar eso por eso se pasa un id con el nombre del input
+
+197 usando KeyboardAvoidingView para que el teclado no se sobreponga a los inputs

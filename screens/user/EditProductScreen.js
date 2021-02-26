@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useReducer } from 'react'
-import { View, Text, ScrollView, TextInput, StyleSheet, Platform, Alert } from 'react-native'
+import { View, ScrollView, StyleSheet, Platform, Alert, KeyboardAvoidingView } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -101,6 +101,11 @@ const EditProductScreen = ({ navigation }) => {
     }, [dispatchFormState])
 
     return (
+        <KeyboardAvoidingView 
+            style={{flex: 1}} 
+            behavior={(Platform.OS === 'ios')? "padding" : null}
+            keyboardVerticalOffset={Platform.select({ios: 0, android: 500})}
+            >
         <ScrollView>
             <View style={styles.form}>
                 <Input 
@@ -143,7 +148,7 @@ const EditProductScreen = ({ navigation }) => {
                     id='description'
                     label="Descripción"
                     onInputChange={inputChangeHandler}
-                    errorText="Ingrese una descripción válida"
+                    errorText={formState.inputValues.description.length < 5 ? "La descripción debe tener al menos 5 caracteres" : "Ingrese una url válida"}
                     autoCapitalize='sentences'
                     autoCorrect
                     multiline
@@ -155,6 +160,7 @@ const EditProductScreen = ({ navigation }) => {
                 />
             </View>
         </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
