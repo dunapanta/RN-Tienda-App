@@ -7,36 +7,44 @@ export const SET_PRODUCTS = 'SET_PRODUCTS'
 
 export const fetchProducts = () => {
     return async dispatch => {
-        // se puede ejecutar código asíncrono
-        const response = await fetch('https://rn-shop-app-dc6ed-default-rtdb.firebaseio.com/products.json', {
-        })
+        try {
+            const response = await fetch('https://rn-shop-app-dc6ed-default-rtdb.firebaseio.com/products.json', {
+            })
 
-       
-        const resData = await response.json() 
-        /* devuelve un objeto
-                Object {
-        "-MUWJLw8GnsSIiPQywI3": Object {
-            "description": "Elegante camisa",
-            "imageUrl": "https://swat-store.com/202-large_default/camisa-tactica-manga-corta-color-plomo.jpg",
-            "price": 67,
-            "title": "Camisa",
-        },
-        }
-         */
-        //console.log(resData)
+            const resData = await response.json() 
 
-        // necesito trabajar con arrays asi que lo transformo
-        const loadedProducts = []
-        for (const key in resData){
-            loadedProducts.push( new Product(
-                key, 'u1', 
-                resData[key].title, 
-                resData[key].imageUrl,
-                resData[key].description,
-                resData[key].price
-                ))
+            if(!response.ok){
+                // si no devolvio status 200 quiero que arroje error per ejemplo si no esta authenticado
+                throw new Error('Algo ha salido mal')
+
+            }
+            /* devuelve un objeto
+                    Object {
+            "-MUWJLw8GnsSIiPQywI3": Object {
+                "description": "Elegante camisa",
+                "imageUrl": "https://swat-store.com/202-large_default/camisa-tactica-manga-corta-color-plomo.jpg",
+                "price": 67,
+                "title": "Camisa",
+            },
+            }
+            */
+            //console.log(resData)
+
+            // necesito trabajar con arrays asi que lo transformo
+            const loadedProducts = []
+            for (const key in resData){
+                loadedProducts.push( new Product(
+                    key, 'u1', 
+                    resData[key].title, 
+                    resData[key].imageUrl,
+                    resData[key].description,
+                    resData[key].price
+                    ))
+            }
+            dispatch({ type: SET_PRODUCTS, products: loadedProducts })
+        } catch (err) {
+            throw err
         }
-        dispatch({ type: SET_PRODUCTS, products: loadedProducts })
     }
 }
 
