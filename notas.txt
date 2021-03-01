@@ -315,3 +315,6 @@ export const createProduct = (title, description, imageUrl, price) => {
         })
     }
 }
+
+
+204 Obteniendo los productos de firebase
