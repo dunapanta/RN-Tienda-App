@@ -318,3 +318,22 @@ export const createProduct = (title, description, imageUrl, price) => {
 
 
 204 Obteniendo los productos de firebase
+
+205 S i se quiere utilizar async await dentro de un useEffect se debe crear una funcion y se la llama asi
+
+useEffect( () => {
+        setIsLoading(true)
+        // si se quiere utilizar async await es importante crear una nueva funcion, 
+        //useEffect NO debe retornar una promesa y esta es la forma correcta de hacerlo o usando then catch
+        const loadProducts = async () => {
+            await dispatch(productsActions.fetchProducts()).then()
+            setIsLoading(false)
+        }
+        loadProducts()
+    }, [dispatch])
+
+para mostrar spinner
+
+<View style={styles.centered}>
+    <ActivityIndicator size='large' color={Colors.primaryDark} />
+</View>

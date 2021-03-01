@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { FlatList, Button, StyleSheet, Platform }  from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { FlatList, Button, StyleSheet, Platform, View, ActivityIndicator }  from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
@@ -10,13 +10,21 @@ import HeaderButton from '../../components/UI/HeaderButton'
 import Colors from '../../constants/Colors'
 
 const ProductsOverviewScreen = ({ navigation }) => {
+    const [isLoading, setIsLoading] = useState(false)
 
     const products = useSelector( state => state.products.availableProducts)
 
     const dispatch = useDispatch()
 
     useEffect( () => {
-        dispatch(productsActions.fetchProducts())
+        setIsLoading(true)
+        // si se quiere utilizar async await es importante crear una nueva funcion, 
+        //useEffect NO debe retornar una promesa y esta es la forma correcta de hacerlo o usando then catch
+        const loadProducts = async () => {
+            await dispatch(productsActions.fetchProducts()).then()
+            setIsLoading(false)
+        }
+        loadProducts()
     }, [dispatch])
 
     const selectItemHandler = (id, title) => {
@@ -27,6 +35,14 @@ const ProductsOverviewScreen = ({ navigation }) => {
                 productTitle: title,
             }
         })
+    }
+
+    if(isLoading) {
+        return (
+            <View style={styles.centered}>
+                <ActivityIndicator size='large' color={Colors.primaryDark} />
+            </View>
+        )
     }
 
     return (
@@ -86,7 +102,11 @@ ProductsOverviewScreen.navigationOptions = navData => {
 }
 
 const styles = StyleSheet.create({
-
+    centered: {
+        flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center'
+    }
 })
 
 export default ProductsOverviewScreen
