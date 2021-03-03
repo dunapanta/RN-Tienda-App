@@ -1,4 +1,39 @@
+import Order from "../../models/order"
+
 export const ADD_ORDER = 'ADD_ORDER'
+export const SET_ORDERS = 'SET_ORDERS'
+
+export const fetchOrders = () => {
+    return async dispatch => {
+        try {
+            const response = await fetch('https://rn-shop-app-dc6ed-default-rtdb.firebaseio.com/orders/u1.json') 
+
+            if(!response.ok){
+                // si no devolvio status 200 quiero que arroje error per ejemplo si no esta authenticado
+                throw new Error('Algo ha salido mal')
+
+            }
+            const resData = await response.json()
+
+            // necesito trabajar con arrays asi que lo transformo
+            const loadedOrders = []
+            for (const key in resData){
+                loadedOrders.push( 
+                    new Order(
+                        key,
+                        resData[key].cartItems,
+                        resData[key].totalAmount,
+                        new Date(resData[key].date) //se crea un date nuevo xq solo se almacena como string en firebase y necesito en obj
+                    )
+                )
+            }       
+
+            dispatch({ type: SET_ORDERS, orders: loadedOrders})
+        } catch(err) {
+            throw err
+        }
+    }
+}
 
 export const addOrder = (cartItems, totalAmount) => {
     return async dispatch => {
