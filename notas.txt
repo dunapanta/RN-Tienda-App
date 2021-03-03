@@ -382,3 +382,10 @@ useEffect( () => {
         })
     }
 }
+
+212 Pull to Refresh
+hacer fetch dentro de la pagina o seccion ya que es un comportamiento común en las apps
+Es facil si se utiliza FlatList o ScrollView
+lo implemento en ProductsOverviewScreen en FlatList añado las propiedades 
+onRefresh={loadProducts}
+refreshing={isLoading}

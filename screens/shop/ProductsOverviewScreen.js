@@ -11,6 +11,7 @@ import Colors from '../../constants/Colors'
 
 const ProductsOverviewScreen = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false)
+    const [isRefreshing, setIsRefreshing] = useState(false)
     const [error, setError] = useState()
 
     const products = useSelector( state => state.products.availableProducts)
@@ -19,22 +20,24 @@ const ProductsOverviewScreen = ({ navigation }) => {
 
     const loadProducts = useCallback(async () => {
         setError(null)
-        setIsLoading(true)
+        setIsRefreshing(true)
         try {
             await dispatch(productsActions.fetchProducts())
 
         }catch(err){
             setError(err.message)
         }
-        setIsLoading(false)
+        setIsRefreshing(false)
     }, [dispatch, setIsLoading, setError])
 
     //Fetch products initially
     useEffect( () => {
         // si se quiere utilizar async await es importante crear una nueva funcion, 
         //useEffect NO debe retornar una promesa y esta es la forma correcta de hacerlo o usando then catch
-        
-        loadProducts()
+        setIsLoading(true)
+        loadProducts().then( () => {
+            setIsLoading(false)
+        })
     }, [dispatch, loadProducts])
 
     //Navigation Listener
@@ -84,6 +87,8 @@ const ProductsOverviewScreen = ({ navigation }) => {
 
     return (
         <FlatList 
+            onRefresh={loadProducts}
+            refreshing={isRefreshing}
             //keyExtractor={item => item.id} 
             data={products} 
             renderItem={ itemData => (
