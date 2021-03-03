@@ -29,12 +29,23 @@ const ProductsOverviewScreen = ({ navigation }) => {
         setIsLoading(false)
     }, [dispatch, setIsLoading, setError])
 
+    //Fetch products initially
     useEffect( () => {
         // si se quiere utilizar async await es importante crear una nueva funcion, 
         //useEffect NO debe retornar una promesa y esta es la forma correcta de hacerlo o usando then catch
         
         loadProducts()
     }, [dispatch, loadProducts])
+
+    //Navigation Listener
+    useEffect( () => {
+        const willFocusSub = navigation.addListener('willFocus', loadProducts)
+
+        // cleanup function runs whenever this effect is about to rerun or this component is destroyed
+        return () => {
+            willFocusSub.remove()
+        }
+    }, [loadProducts]) 
 
     const selectItemHandler = (id, title) => {
         navigation.navigate({ 

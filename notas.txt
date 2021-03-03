@@ -337,3 +337,14 @@ para mostrar spinner
 <View style={styles.centered}>
     <ActivityIndicator size='large' color={Colors.primaryDark} />
 </View>
+
+206 La navegación pro drawer se mantiene en memoria  por lo que no se vuelve a hacer fetch cuando se cambia a otra
+sección y esto es un problema en caso de que se edite o cambie algo no se trabajaria con los datos actuales
+para volver a hacer fetch es necesario implementar un navigation listener para volver a obtener datos cadavezción
+
+useEffect( () => {
+        // si se quiere utilizar async await es importante crear una nueva funcion, 
+        //useEffect NO debe retornar una promesa y esta es la forma correcta de hacerlo o usando then catch
+        
+        loadProducts()
+    }, [dispatch, loadProducts])
