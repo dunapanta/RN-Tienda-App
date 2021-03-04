@@ -430,3 +430,5 @@ para obtener acceso al store (con todas las partes de los reducers) desde otras 
  }
 
  222 Mapeo de Orders a Users
+
+ 224 AutoLogin si se tiene un token válido

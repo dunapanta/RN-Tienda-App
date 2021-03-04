@@ -35,7 +35,8 @@ export const fetchProducts = () => {
             const loadedProducts = []
             for (const key in resData){
                 loadedProducts.push( new Product(
-                    key, 'u1', 
+                    key, 
+                    resData[key].ownerId, 
                     resData[key].title, 
                     resData[key].imageUrl,
                     resData[key].description,
@@ -44,8 +45,8 @@ export const fetchProducts = () => {
             }
             dispatch({ 
                 type: SET_PRODUCTS, 
-                products: loadedProducts, userProducts: 
-                loadedProducts.filter(prod => prod.ownerId === userId)})
+                products: loadedProducts, 
+                userProducts: loadedProducts.filter(prod => prod.ownerId === userId)})
         } catch (err) {
             throw err
         }
