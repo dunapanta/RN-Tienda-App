@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from 'react'
+import React, { useState, useReducer, useCallback } from 'react'
 import { ScrollView, View, StyleSheet, KeyboardAvoidingView, Platform, Button } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useDispatch } from 'react-redux'
@@ -36,6 +36,7 @@ const formReducer =  (state, action) => {
 }
 
 const AuthScreen = () => {
+    const [isSignup, setIsSignup] = useState(false)
 
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
@@ -51,8 +52,16 @@ const AuthScreen = () => {
 
     const dispatch = useDispatch()
 
-    const signupHnadler = () => {
-        dispatch(authActions.signup(formState.inputValues.email, formState.inputValues.password))
+    const authHnadler = () => {
+        if(isSignup){
+            dispatch(
+                authActions.signup(formState.inputValues.email, formState.inputValues.password
+                    ))
+        }else{
+            dispatch(
+                authActions.login(formState.inputValues.email, formState.inputValues.password
+                    ))
+        }
     }
 
     const inputChangeHandler = useCallback((inputIdentifier, inputValue, inputValid) => {
@@ -98,16 +107,18 @@ const AuthScreen = () => {
                         />
                         <View style={styles.buttonContainer}>
                             <Button 
-                            title='Iniciar Sesión' 
+                            title={isSignup ? 'Registrarse' :'Iniciar Sesión'} 
                             color={Colors.secondary}
-                            onPress={signupHnadler}
+                            onPress={authHnadler}
                             />
                         </View>
                         <View style={styles.buttonContainer}>
                             <Button 
-                                title='Cambiar a Registrarse' 
+                                title={`Cambiar a ${isSignup ? 'Iniciar Sesión' : 'Registrarse'}`} 
                                 color={Colors.secondaryDark}
-                                onPress={ () => {}}
+                                onPress={ () => {
+                                    setIsSignup(preState => !preState)
+                                }}
                             />
                         </View>
                     </ScrollView>
