@@ -389,3 +389,31 @@ Es facil si se utiliza FlatList o ScrollView
 lo implemento en ProductsOverviewScreen en FlatList añado las propiedades 
 onRefresh={loadProducts}
 refreshing={isLoading}
+
+
+
+217 Autenticación en ShopNavigator importo
+createSwitchNavigator que sirve para casos de autenticación con este desplega un solo screen y no puedes volver a uno anterior
+es el caso de login si se loggeo el usuario no puede volver atras 
+
+import { createSwitchNavigator  } from 'react-navigation'
+
+const AuthNavigator = createStackNavigator({
+    Auth: AuthScreen
+})
+
+const MainNavigator  = createSwitchNavigator({
+    Auth: AuthNavigator,
+    Shop: ShopNavigator
+})
+
+creo screen de autenticación
+
+importo
+
+yarn add expo-linear-gradient
+
+ <LinearGradient colors={[Colors.primary, Colors.secondary]} style={styles.gradient}>
+</LinearGradient>
+
+218 Activo autenticacion corre y contraseña en firebase 

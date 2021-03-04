@@ -1,4 +1,4 @@
-import { createAppContainer } from 'react-navigation'
+import { createAppContainer, createSwitchNavigator  } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import { Platform } from 'react-native'
@@ -11,6 +11,7 @@ import CartScreen from '../screens/shop/CartScreen'
 import OrdersScreen from '../screens/shop/OrdersScreen'
 import UserProductScreen from '../screens/user/UserProductScreen'
 import EditProductScreen from '../screens/user/EditProductScreen'
+import AuthScreen from '../screens/user/AuthScreen'
 import Colors from '../constants/Colors'
 
 const ProductsNavigator = createStackNavigator({
@@ -116,4 +117,27 @@ const ShopNavigator = createDrawerNavigator({
     drawerBackgroundColor: Colors.primary
 })
 
-export default createAppContainer(ShopNavigator)
+const AuthNavigator = createStackNavigator({
+    Auth: AuthScreen
+}, {
+    defaultNavigationOptions: {
+        headerStyle:{
+            backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
+        },
+        headerTitleStyle: {
+            fontFamily: 'open-sans-bold'
+        },
+        headerBackTitleStyle:{
+            fontFamily: 'open-sans'
+        },
+        headerTintColor: Platform.OS === 'android' ? Colors.secondaryDarker : Colors.primary,
+
+    },
+} )
+
+const MainNavigator  = createSwitchNavigator({
+    Auth: AuthNavigator,
+    Shop: ShopNavigator
+})
+
+export default createAppContainer(MainNavigator)
