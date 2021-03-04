@@ -1,5 +1,14 @@
-import React, { useState, useReducer, useCallback } from 'react'
-import { ScrollView, View, StyleSheet, KeyboardAvoidingView, Platform, Button } from 'react-native'
+import React, { useState, useEffect, useReducer, useCallback } from 'react'
+import { 
+    ScrollView, 
+    View, 
+    StyleSheet, 
+    KeyboardAvoidingView, 
+    Platform, 
+    Button, 
+    ActivityIndicator,
+    Alert 
+} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useDispatch } from 'react-redux'
 
@@ -36,7 +45,9 @@ const formReducer =  (state, action) => {
 }
 
 const AuthScreen = () => {
+    const [isLoading, setIsLoading] = useState(false)
     const [isSignup, setIsSignup] = useState(false)
+    const [error, setError] = useState()
 
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
@@ -52,16 +63,29 @@ const AuthScreen = () => {
 
     const dispatch = useDispatch()
 
-    const authHnadler = () => {
-        if(isSignup){
-            dispatch(
-                authActions.signup(formState.inputValues.email, formState.inputValues.password
-                    ))
-        }else{
-            dispatch(
-                authActions.login(formState.inputValues.email, formState.inputValues.password
-                    ))
+    useEffect( () => {
+        if(error){
+            Alert.alert('Ha ocurrido un error!', error, [{ text: 'Aceptar'}])
         }
+    }, [error])
+
+    const authHnadler = async () => {
+        
+        let action;
+
+        if(isSignup){
+              action = authActions.signup(formState.inputValues.email, formState.inputValues.password)
+        }else{
+              action = authActions.login(formState.inputValues.email, formState.inputValues.password)
+        }
+        setError(null)
+        setIsLoading(true)
+        try{
+            await dispatch(action)
+        } catch(err){
+            setError(err.message)
+        }
+        setIsLoading(false)
     }
 
     const inputChangeHandler = useCallback((inputIdentifier, inputValue, inputValid) => {
@@ -106,11 +130,13 @@ const AuthScreen = () => {
                             initialValue=''
                         />
                         <View style={styles.buttonContainer}>
-                            <Button 
+                            {isLoading ? 
+                            <ActivityIndicator size='small'color={Colors.primaryDark}/> 
+                            : <Button 
                             title={isSignup ? 'Registrarse' :'Iniciar Sesión'} 
                             color={Colors.secondary}
                             onPress={authHnadler}
-                            />
+                            />}
                         </View>
                         <View style={styles.buttonContainer}>
                             <Button 

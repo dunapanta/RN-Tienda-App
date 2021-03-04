@@ -418,3 +418,5 @@ yarn add expo-linear-gradient
 
 218 Activo autenticacion correo y contraseña en firebase 
 creo action para despachar y crear un nuevo usuario
+
+220 Manejando loading y Errores
