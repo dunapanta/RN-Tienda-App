@@ -420,3 +420,11 @@ yarn add expo-linear-gradient
 creo action para despachar y crear un nuevo usuario
 
 220 Manejando loading y Errores
+
+221 Cambio a Shop cuando hago login bien 
+comienzo a implementar lógica de reducer para el token 
+para obtener acceso al store (con todas las partes de los reducers) desde otras actions se puede acceder mediante redux thunk de esta forma
+
+ return async (dispatch, getState) => {
+      const token = getState().auth.token
+ }
