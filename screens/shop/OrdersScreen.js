@@ -29,6 +29,15 @@ const OrdersScreen = () => {
         )
     }
 
+    if(orders.length === 0) {
+        return (
+            <View style={styles.noProducts}>
+                <Text style={styles.text}>Aún no se han econtrado ordenes</Text>
+            </View>
+        )
+    }
+
+
     return (
         <FlatList 
             keyExtractor={item => item.id}
@@ -67,6 +76,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    noProducts:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    text:{
+        fontFamily: 'open-sans',
+        fontSize: 18,
+        color: Colors.secondaryDarker
     }
 })
 

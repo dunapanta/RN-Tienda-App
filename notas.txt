@@ -428,3 +428,5 @@ para obtener acceso al store (con todas las partes de los reducers) desde otras 
  return async (dispatch, getState) => {
       const token = getState().auth.token
  }
+
+ 222 Mapeo de Orders a Users

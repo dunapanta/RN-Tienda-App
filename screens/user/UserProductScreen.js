@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, Button, Platform, Alert } from 'react-native'
+import { View, FlatList, StyleSheet, Button, Platform, Alert, Text } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
@@ -24,6 +24,14 @@ const UserProductScreen = ({ navigation }) => {
                 dispatch(productsActions.deleteProduct(id))
             }}
         ])
+    }
+
+    if(userProducts.length === 0) {
+        return (
+            <View style={styles.noProducts}>
+                <Text style={styles.text}>Aún no se han econtrado productos</Text>
+            </View>
+        )
     }
 
     return (
@@ -84,5 +92,20 @@ UserProductScreen.navigationOptions = navData => {
 
     }
 }
+
+const styles = StyleSheet.create({
+    noProducts:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'open-sans',
+        fontSize: 18
+    },
+    text:{
+        fontFamily: 'open-sans',
+        fontSize: 18,
+        color: Colors.secondaryDarker
+    }
+})
 
 export default UserProductScreen
