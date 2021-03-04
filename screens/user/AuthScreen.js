@@ -1,12 +1,69 @@
-import React from 'react'
+import React, { useReducer, useCallback } from 'react'
 import { ScrollView, View, StyleSheet, KeyboardAvoidingView, Platform, Button } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useDispatch } from 'react-redux'
 
 import Input from '../../components/UI/Input'
 import Card from '../../components/UI/Card'
 import Colors from '../../constants/Colors'
+import * as authActions from '../../store/actions/auth'
+
+const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE'
+
+const formReducer =  (state, action) => {
+    if (action.type === FORM_INPUT_UPDATE){
+        const updatedValues = {
+            ...state.inputValues,
+            [action.input]: action.value
+        }
+
+        const updatedValidities = {
+            ...state.inputValidities,
+            [action.input]: action.isValid 
+        }
+        let updatedFormIsValid = true
+        for (const key in updatedValidities){
+            updatedFormIsValid = updatedFormIsValid && updatedValidities[key]
+        }
+        return {
+            ...state,
+            inputValidities: updatedValidities,
+            inputValues: updatedValues,
+            formIsValid: updatedFormIsValid
+        }
+    }
+    return state
+}
 
 const AuthScreen = () => {
+
+    const [formState, dispatchFormState] = useReducer(formReducer, {
+        inputValues: {
+            email: '',
+            password: ''
+        }, 
+        inputValidities: {
+            email: false,
+            password: false
+        },
+        formIsValid: false,
+    })
+
+    const dispatch = useDispatch()
+
+    const signupHnadler = () => {
+        dispatch(authActions.signup(formState.inputValues.email, formState.inputValues.password))
+    }
+
+    const inputChangeHandler = useCallback((inputIdentifier, inputValue, inputValid) => {
+        dispatchFormState({
+            type: FORM_INPUT_UPDATE, 
+            value: inputValue,
+            isValid: inputValid,
+            input: inputIdentifier
+         })
+    }, [dispatchFormState])
+
     return (
         <KeyboardAvoidingView 
             style={styles.screen}
@@ -23,8 +80,8 @@ const AuthScreen = () => {
                             require
                             email
                             autoCapitalize='none'
-                            errorMessage='Ingrese un correo electrónico válido'
-                            onInputChange={ () => {}}
+                            errorText='Ingrese un correo electrónico válido'
+                            onInputChange={inputChangeHandler}
                             initialValue=''
                         />
                         <Input 
@@ -35,15 +92,15 @@ const AuthScreen = () => {
                             require
                             minLength={5}
                             autoCapitalize='none'
-                            errorMessage='Ingrese una contraseña válida'
-                            onInputChange={ () => {}}
+                            errorText='La contraseña debe tener al menos 5 caracteres'
+                            onInputChange={inputChangeHandler}
                             initialValue=''
                         />
                         <View style={styles.buttonContainer}>
                             <Button 
                             title='Iniciar Sesión' 
                             color={Colors.secondary}
-                            onPress={ () => {}}
+                            onPress={signupHnadler}
                             />
                         </View>
                         <View style={styles.buttonContainer}>

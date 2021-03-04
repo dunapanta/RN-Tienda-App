@@ -416,4 +416,5 @@ yarn add expo-linear-gradient
  <LinearGradient colors={[Colors.primary, Colors.secondary]} style={styles.gradient}>
 </LinearGradient>
 
-218 Activo autenticacion corre y contraseña en firebase 
+218 Activo autenticacion correo y contraseña en firebase 
+creo action para despachar y crear un nuevo usuario
