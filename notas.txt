@@ -432,3 +432,40 @@ para obtener acceso al store (con todas las partes de los reducers) desde otras 
  222 Mapeo de Orders a Users
 
  224 AutoLogin si se tiene un token válido
+ se debe almacenar el token no en redux sino en el dispositivo
+
+ Para almacenar se lo hace en auth.js actions
+
+ yarn add @react-native-community/async-storage
+ import { AsyncStorage } from '@react-native-community/async-storage'
+
+const  saveDataToStorege = (token, userId, expirationDate) => {
+    AsyncStorage.setItem('userData', JSON.stringify({
+        toke: token,
+        userId: userId,
+        expiryDate: expirationDate.toISOString()
+    }))
+}
+
+se necesita saber por cuanto tiempo el token es válido
+
+ const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000)// getTime() current timestamp in miliseconds
+        saveDataToStorege(resData.idToken, resData.localId, expirationDate)
+
+ahora que se lo esta guardando toca verificar si se tiene el token válido
+una forma de verificar esto es creando un nuevo screen StartupScreen.js
+la idea es que se muestre este screen y se averigua si el usuario esta autenticado o no y esto es super rapido
+
+2021
+yarn add expo-secure-store
+
+const  saveDataToStorege = async (token, userId, expirationDate) => {
+    await SecureStore.setItemAsync('userData', JSON.stringify({
+        toke: token,
+        userId: userId,
+        expiryDate: expirationDate.toISOString()
+    }))
+}
+
+en StartupScreen
+ const userData = await SecureStore.getItemAsync('userData')

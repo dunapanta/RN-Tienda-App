@@ -1,5 +1,17 @@
+/* import { AsyncStorage } from '@react-native-community/async-storage' */
+import * as SecureStore from 'expo-secure-store';
+
 export const SIGNUP = 'SIGNUP'
 export const LOGIN = 'LOGIN'
+export const AUTHENTICATE = 'AUTHENTICATE'
+
+export const authenticate = (userId, token) => {
+    return {
+        type: AUTHENTICATE,
+        userId: userId,
+        token: token
+    }
+}
 
 export const signup = (email, password) => {
     return async dispatch => {
@@ -30,6 +42,9 @@ export const signup = (email, password) => {
         console.log(resData)
 
         dispatch({ type: SIGNUP, token: resData.idToken, userId: resData.localId })
+
+        const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000)// getTime() current timestamp in miliseconds
+        saveDataToStorege(resData.idToken, resData.localId, expirationDate)
 
     }
 }
@@ -69,5 +84,15 @@ export const login = (email, password) => {
 
         dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId })
 
+        const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000)// getTime() current timestamp in miliseconds
+        saveDataToStorege(resData.idToken, resData.localId, expirationDate)
     }
+}
+
+const  saveDataToStorege = async (token, userId, expirationDate) => {
+    await SecureStore.setItemAsync('userData', JSON.stringify({
+        token: token,
+        userId: userId,
+        expiryDate: expirationDate.toISOString()
+    }))
 }
