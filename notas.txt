@@ -469,3 +469,7 @@ const  saveDataToStorege = async (token, userId, expirationDate) => {
 
 en StartupScreen
  const userData = await SecureStore.getItemAsync('userData')
+
+ 225 logout
+
+ Agregando un nuevo botón al sidedrawer

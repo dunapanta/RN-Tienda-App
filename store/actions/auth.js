@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 export const SIGNUP = 'SIGNUP'
 export const LOGIN = 'LOGIN'
 export const AUTHENTICATE = 'AUTHENTICATE'
+export const LOGOUT = 'LOGOUT'
 
 export const authenticate = (userId, token) => {
     return {
@@ -86,6 +87,12 @@ export const login = (email, password) => {
 
         const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000)// getTime() current timestamp in miliseconds
         saveDataToStorege(resData.idToken, resData.localId, expirationDate)
+    }
+}
+
+export const logout = () => {
+    return {
+        type: LOGOUT
     }
 }
 
