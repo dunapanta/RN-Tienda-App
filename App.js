@@ -15,6 +15,7 @@ import ordersReducer from './store/reducers/orders'
 import authReducer  from './store/reducers/auth'
 import ShopNavigator from './navigation/ShopNavigator'
 import Colors from './constants/Colors'
+import NavigationContainer from './navigation/NavigationContainer'
 
 const rootReducer = combineReducers({
   products: productsReducer,
@@ -47,16 +48,14 @@ export default function App() {
         )
   }
 
+  console.disableYellowBox = true;
+
   return (
     <>
      <StatusBar barStyle="light-content" backgroundColor={Colors.primaryDark} />
     <Provider store={store}>
-      <ShopNavigator />
+      <NavigationContainer />
     </Provider>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  
-});

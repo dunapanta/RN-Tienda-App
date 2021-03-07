@@ -472,4 +472,7 @@ en StartupScreen
 
  225 logout
 
- Agregando un nuevo botón al sidedrawer
+ Agregando un nuevo botón al sidedrawer se crea la function con setTimeout pero genera un warning en android
+
+ y se crea un componente NavigationContainer para para poder utilizar el estado de redux y se utiliza
+ useRef para navegar a Login si se vencio el token

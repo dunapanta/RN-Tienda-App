@@ -6,11 +6,17 @@ export const LOGIN = 'LOGIN'
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const LOGOUT = 'LOGOUT'
 
-export const authenticate = (userId, token) => {
-    return {
-        type: AUTHENTICATE,
-        userId: userId,
-        token: token
+let timer
+
+export const authenticate = (userId, token, expiryTime) => {
+
+    return dispatch => {
+        dispatch(setLogoutTimer(expiryTime))   
+        dispatch({
+            type: AUTHENTICATE,
+            userId: userId,
+            token: token
+        })
     }
 }
 
@@ -42,7 +48,12 @@ export const signup = (email, password) => {
         const resData = await response.json()
         console.log(resData)
 
-        dispatch({ type: SIGNUP, token: resData.idToken, userId: resData.localId })
+        dispatch(setLogoutTimer(parseInt(resData.expiresIn) * 1000))
+        dispatch({ 
+            type: SIGNUP, 
+            token: resData.idToken, 
+            userId: resData.localId, 
+             })
 
         const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000)// getTime() current timestamp in miliseconds
         saveDataToStorege(resData.idToken, resData.localId, expirationDate)
@@ -83,7 +94,13 @@ export const login = (email, password) => {
         const resData = await response.json()
         console.log(resData)
 
-        dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId })
+        dispatch(setLogoutTimer(parseInt(resData.expiresIn) * 1000))
+        dispatch({ 
+            type: LOGIN, 
+            token: resData.idToken, 
+            userId: resData.localId,
+            expiration: parseInt(resData.expiresIn) * 1000
+        })
 
         const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000)// getTime() current timestamp in miliseconds
         saveDataToStorege(resData.idToken, resData.localId, expirationDate)
@@ -91,8 +108,27 @@ export const login = (email, password) => {
 }
 
 export const logout = () => {
-    return {
-        type: LOGOUT
+    return async dispatch => {
+        clearLogoutTimer()
+        await SecureStore.deleteItemAsync('userData')
+        dispatch({
+            type: LOGOUT
+        })
+    }
+    
+}
+
+const clearLogoutTimer = () => {
+    if(timer){
+        clearTimeout(timer)
+    }
+}
+
+const setLogoutTimer = expirationTime => {  
+    return dispatch => {
+        timer = setTimeout( () => {
+            dispatch(logout())
+        }, expirationTime)
     }
 }
 

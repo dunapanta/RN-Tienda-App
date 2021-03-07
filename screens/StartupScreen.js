@@ -29,8 +29,10 @@ const StartupScreen = ({ navigation }) => {
                 return;
             }
             // Si llega hasta aqui se tiene token y userId válido
+            const expirationTime = expirationDate.getTime() - new Date().getTime()
+
             navigation.navigate('Shop')
-            dispatch(authActions.authenticate(userId, token))
+            dispatch(authActions.authenticate(userId, token, expirationTime))
         }
 
         tryLogin()
