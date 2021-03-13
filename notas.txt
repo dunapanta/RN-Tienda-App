@@ -476,3 +476,82 @@ en StartupScreen
 
  y se crea un componente NavigationContainer para para poder utilizar el estado de redux y se utiliza
  useRef para navegar a Login si se vencio el token
+
+
+
+ 296 Notifications
+
+ Existen dos tipos Local Notifications y Push Notifications
+
+ Locales --> son programadas, activadas y menejadas por el mismo dispositivo, son activadas en la aplicación
+ y se muestran localmente al usuario
+
+ Push Notifications --> el app recive las notificaciones que se envio y muestra una notificación local normalmente
+
+ utilizando expo se instala
+
+ expo install expo-notifications
+
+ import * as Notifications from 'xpo-notifications'
+
+ Notifications.scheduleNotificationAsync({
+     content:{ 
+         // no todas las propiedades sirven para las dos plataformas pero si alguno no sirve lo solo lo ignora
+         title: 'El titulo',
+         body: 'El contenido de la notificación'
+     }
+     trigger:{
+         seconds: 10
+
+     }
+ })
+
+ para que funcoine en android se debe agregar en app.json
+
+ "android": {
+     "useNextNotificationsApi": true
+ }
+
+ para ios se necesita añadir permisos expicitos para recibir notificaciones
+
+ se necesita que el usuario acepte permiso
+
+ expo install expo-permissions
+
+ import * as Permissions from 'expo-permissions'
+
+depende de la app cuando se solicite el permiso en este caso se lo hace cuando la app inicializa
+
+useEffect ( () => {
+    // ver el status de NOTIFICATIONS y si no tiene se lo pedimos
+    Permissions.getAsync(Permissions.NOTIFICATIONS)
+    .then(statusObj => {
+        if(statusObj.status !== 'granted') {
+            return Permissions.askAsync(Permissions.NOTIFICATIONS)
+        }
+        return statusObj
+    })
+    .then(statusObj => {
+        // el usuario pudo haber rechazado el permiso 
+        if (statusObj.status !== 'granted'){
+            return
+        }
+    })
+}, [])
+
+ importtante si el usuario esta en la app no se muestra la notificación solo se muestra 
+la app corre en background
+
+
+303 Para enviar Push Notifications se necesita un Oficial Push Notification Server
+y tanto google como Apple tinen su servidor de notificaciones y se necesita de ellos
+para enviar las notificaciones
+
+se necesita tener un token que se obtiene al registrar la app para usar estos servidores de notificaciones
+
+
+310 Notificaciones en Shop App
+
+voy a app.json y agrego
+
+"useNextNotificationsApi": true
