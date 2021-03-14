@@ -555,3 +555,15 @@ se necesita tener un token que se obtiene al registrar la app para usar estos se
 voy a app.json y agrego
 
 "useNextNotificationsApi": true
+
+lalogica de pdi el permiso se pone la action de products cuando el usuario
+crea un nuevo producto
+
+expo install expo-notifications
+expo install expo-permissions
+
+import * as Notifications from 'expo-notifications'
+import * as Permissions from 'expo-permissions'
+
+es necesario logearse con la cuenta de expo con 
+expo login
