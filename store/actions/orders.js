@@ -73,7 +73,9 @@ export const addOrder = (cartItems, totalAmount) => {
 
             //Send Notification
             for (const cartItem of cartItems){
-                const pushToken = cartItem.pushToken
+                const pushToken = cartItem.productPushToken
+
+                //console.log("Token", cartItem)
 
                 fetch('https://exp.host/--/api/v2/push/send', {
                     method: 'POST',
