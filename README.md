@@ -14,7 +14,7 @@
 <img src="./gifs/shop.gif" height="50%" width="50%">
 
 ## Lo Aprendido
-* Implementar autenticación en autenticación
+* Implementar formularios de autenticación
 * Trabajar con sesiones de autenticación por tokens
 * Trabajar con Notificaciónes
 * Trabajar con redux thunk para peticiones asíncronas
